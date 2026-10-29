@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Kahoot Forecaster
-// @version      1.0
+// @version      1.1
 // @description  See all Kahoot quiz answers instantly
 // @author       Deaptop
 // @match        https://kahoot.it/*
@@ -207,23 +207,26 @@
     });
 
     function loadData(quizID, callback) {
-        // if(!savedValue.startsWith("https://create.kahoot.it/rest/kahoots/")) {
-        //     callback(9) //invalid URL
-        //     return;
-        // }
+        let quizAPI;
 
         if(quizID.startsWith("https://")) {
-            if(!quizID.startsWith("https://create.kahoot.it/rest/kahoots/")) {
+            if(!quizID.startsWith("https://play.kahoot.it/v2/lobby")) {
                 callback(9) //invalid URL
                 return;
             }
+
+            quizAPI = quizID.replace(
+                "https://play.kahoot.it/v2/lobby?quizId=", 
+                "https://create.kahoot.it/rest/kahoots/"
+            )
+
         } else {
-            quizID = "https://create.kahoot.it/rest/kahoots/" + quizID;
+            quizAPI = "https://create.kahoot.it/rest/kahoots/" + quizID;
         }
 
         GM_xmlhttpRequest({
             method: "GET",
-            url: quizID, //submitted URL
+            url: quizAPI, //submitted URL
 
             onload: function (response) {
                 try {
