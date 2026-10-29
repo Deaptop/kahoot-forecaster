@@ -22,7 +22,8 @@ Currently supports 6 (probably the most common) quiz types:
 - Poll
 
 Each correct answer is marked in green, others are red.  
-Works even if started during the quiz or if the page got reloaded.
+Works even if started during the quiz or if the page got reloaded.  
+Script GUI is draggable.
 
 # Requirements
 
